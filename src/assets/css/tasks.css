@@ -1,0 +1,62 @@
+@import url('./global.css');
+
+:root {
+    --task-theme: rgb(207, 207, 207);
+    --task-theme-darker: rgb(192, 192, 192);
+}
+
+/*****************
+* TASK CONTAINER *
+*****************/
+div.task {
+    width: 80%;
+    padding: 0.3em;
+    background-color: var(--task-theme);
+    border-radius: 0.5em;
+
+    display: grid;
+    grid-template-columns: 15% 70% 15%;
+    align-items: center;
+
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+div.task:hover {
+    background-color: var(--task-theme-darker);
+}
+
+div.task > div {
+    height: 100%;
+    width: calc(100% - 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+div.task > div > h3, p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0;
+}
+
+div.task > div.check-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 1.5em;
+    font-size: 2em;
+}
+
+div.task > div.button-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 1.5em;
+}
+
+div.task > div.button-container > * {
+    height: 1.5em;
+    width: 1.5em;
+}

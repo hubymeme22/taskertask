@@ -1,0 +1,68 @@
+@import url('./global.css');
+
+div.tasklist-container {
+    box-shadow: 0 0.3em 0.5em 0.2em var(--background-default-shadow);
+    border-radius: 0.5em;
+    background-color: white;
+    width: calc(50% - 2em);
+    max-height: 45em;
+    margin: 0 auto;
+    padding-bottom: 5em;
+}
+
+/********************/
+/* HEADER CONTAINER */
+/********************/
+div.tasklist-container > header {
+    background-color: black;
+    color: white;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+div.tasklist-container > header > h2 {
+    padding-left: 1em;
+    text-align: left;
+}
+
+div.tasklist-container > header > div.button-container {
+    padding: 1.5em;
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: 1.5em;
+}
+
+div.tasklist-container > header > div.button-container > * {
+    height: 1.5em;
+    width: 1.5em;
+    cursor: pointer;
+}
+
+/************************/
+/* SCROLLABLE CONTAINER */
+/************************/
+div.scrollable {
+    padding-top: 1em;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+
+    max-height: 40em;
+    height: auto;
+    align-items: center;
+    overflow-y: auto;
+}
+
+div.scrollable > h4.comment {
+    color: var(--comment-default);
+}
+
+
+/* for mobile phones */
+@media (max-width: 928px) {
+    div.tasklist-container {
+        width: calc(80% - 2em);
+    }
+}

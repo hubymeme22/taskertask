@@ -1,0 +1,56 @@
+@import url('./global.css');
+
+div.task-preview {
+    padding: 1em;
+}
+
+div.task-preview > span > input[type="date"] {
+    height: 1.8em;
+    width: 10em;
+    border-radius: 0.3em;
+    border: 1px solid grey;
+}
+
+div.task-preview > textarea {
+    width: 100%;
+    border: 1px solid grey;
+    box-sizing: border-box;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    outline: none;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+div.task-preview > div.button-container {
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 1em;
+    width: 100%;
+}
+
+div.task-preview > div.button-container > button {
+    border-radius: 0.5em;
+    border: none;
+    color: white;
+    padding-bottom: 0.8em;
+    padding-top: 0.8em;
+    cursor: pointer;
+    width: 7em;
+}
+
+div.task-preview > div.button-container > button.add {
+    background-color: rgb(20, 172, 20);
+    border: 1px solid rgb(20, 172, 20);
+}
+
+div.task-preview > div.button-container > button.cancel {
+    background-color: rgb(201, 19, 19);
+    border: 1px solid rgb(201, 19, 19);
+}
+
+div.task-preview > div.button-container > button:active {
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+}

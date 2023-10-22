@@ -1,0 +1,16 @@
+.header-default {
+    top: 0; left: 0;
+    width: calc(100% - 2em);
+    text-align: center;
+    padding: 1em;
+}
+
+.header-default > h1 {
+    color: var(--font-default);
+    margin: 0;
+}
+
+.header-default > p {
+    color: var(--comment-default);
+    margin: 0;
+}
