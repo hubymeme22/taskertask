@@ -1,3 +1,5 @@
 export default interface TaskPreviewInterface {
-    backCallback: CallableFunction
+    addTaskCallback: CallableFunction,
+    backCallback: CallableFunction,
+    currentTaskLength: number
 }

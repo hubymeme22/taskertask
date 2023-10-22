@@ -10,6 +10,7 @@ const TaskListContainer = () => {
     const [editMode, setEditMode] = useState(false);
     const [tasks, setTasks] = useState([
         {
+            key: 0,
             content: 'This is a sample note by me pls uwu',
             date: new Date(),
             done: false
@@ -20,8 +21,17 @@ const TaskListContainer = () => {
         console.log('Logged out');
     }
 
+    // shows and hides the TaskPreview user prompt
     const startEditMode = function() {
         setEditMode(prevValue => !prevValue);
+    }
+
+    // adds a new task to the list
+    const addNewTask = function(newTask: TaskInterface) {
+        setTasks(value => {
+            value.push(newTask);
+            return value;
+        });
     }
 
     return (
@@ -35,11 +45,15 @@ const TaskListContainer = () => {
             </header>
 
             {/* task state checker part */}
-            { editMode ? <TaskPreview backCallback={startEditMode}/> :
-                <div className='scrollable'>
+            { editMode
+                ? <TaskPreview
+                    currentTaskLength={tasks.length}
+                    addTaskCallback={addNewTask}
+                    backCallback={startEditMode}/>
+                : <div className='scrollable'>
                     {
                         (tasks.length > 0)
-                        ? tasks.map((task: TaskInterface) => <Tasks content={task.content} done={task.done} date={task.date}/>)
+                        ? tasks.map((task: TaskInterface) => <Tasks key={task.key} content={task.content} done={task.done} date={task.date}/>)
                         : <h4 className='comment'>No tasks yet</h4>
                     }
                 </div>
