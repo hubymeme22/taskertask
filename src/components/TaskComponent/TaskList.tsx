@@ -1,18 +1,25 @@
 import { AiOutlineFileAdd, AiOutlineLogout } from 'react-icons/ai'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import TaskInterface from './interface/Task.interface';
+import { authenticateUser } from '../../utils/LocalSaver';
+import TaskListInterface from '../interface/TaskList.interface';
+import TaskInterface from '../interface/Task.interface';
 import TaskPreview from './TaskPreview';
 import Tasks from './Tasks';
-import '../assets/css/tasklist-container.css'
+import '../../assets/css/tasklist-container.css';
 
-const TaskListContainer = () => {
+const TaskListContainer = (prop: TaskListInterface) => {
     const [latestID, setLatestID] = useState(-1);
     const [targetID, setTargetID] = useState(-1);
 
     const [editMode, setEditMode] = useState(false);
     const [previewMode, setPreviewMode] = useState(false);
     const [tasks, setTasks] = useState(Array<TaskInterface>());
+
+    useEffect(() => {
+        const response = authenticateUser(prop.username, prop.userkey);
+        setTasks(response.userdata);
+    }, []);
 
     return (
         <div className="tasklist-container">

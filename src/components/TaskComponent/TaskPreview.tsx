@@ -1,7 +1,7 @@
-import TaskPreviewInterface from './interface/TaskPreview.interface';
-import TaskInterface from './interface/Task.interface';
+import TaskPreviewInterface from '../interface/TaskPreview.interface';
+import TaskInterface from '../interface/Task.interface';
 import { useEffect, useState } from 'react';
-import '../assets/css/taskpreview.css'
+import '../../assets/css/taskpreview.css'
 
 // changes the task to editting preview mode
 const TaskPreview = (prop: TaskPreviewInterface) => {

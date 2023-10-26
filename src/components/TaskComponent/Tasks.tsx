@@ -1,7 +1,7 @@
 import { AiOutlineCheckCircle, AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
-import { IndivTaskInterface, CircleInterface } from './interface/Task.interface';
+import { IndivTaskInterface, CircleInterface } from '../interface/Task.interface';
 import { useEffect, useState } from 'react';
-import '../assets/css/tasks.css'
+import '../../assets/css/tasks.css';
 
 const CheckCircle = (prop: CircleInterface) => {
     const [activated, setCircleState] = useState(false);
