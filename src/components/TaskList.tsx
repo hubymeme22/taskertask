@@ -51,7 +51,8 @@ const TaskListContainer = () => {
                                     done={task.done}
                                     setEditMode={setEditMode}
                                     setPreviewMode={setPreviewMode}
-                                    setTargetID={setTargetID}/>
+                                    setTargetID={setTargetID}
+                                    setTasks={setTasks}/>
                             )
                         })
                         : <h4 className='comment' key={-1}>No tasks yet</h4>

@@ -1,13 +1,21 @@
 import { AiOutlineCheckCircle, AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
-import { IndivTaskInterface } from './interface/Task.interface';
+import { IndivTaskInterface, CircleInterface } from './interface/Task.interface';
+import { useEffect, useState } from 'react';
 import '../assets/css/tasks.css'
-import { useState } from 'react';
 
-const CheckCircle = (prop: object) => {
+const CheckCircle = (prop: CircleInterface) => {
     const [activated, setCircleState] = useState(false);
+    useEffect(() => setCircleState(prop.done), []);
+
     const activateCheckedCircle = function() {
-        setCircleState(status => !status);
+        prop.setTasks((tasks: Array<IndivTaskInterface>) => {
+            tasks[prop.id].done = !activated;
+            return tasks;
+        });
+
+        setCircleState(circlestate => !circlestate);
     }
+
 
     // className for react-icon doesnt work... so for now, i implement this
     const customedStyle = function() {
@@ -35,7 +43,10 @@ const Tasks = (prop: IndivTaskInterface) => {
 
     return (
         <div className="task">
-            <CheckCircle/>
+            <CheckCircle
+                id={prop.id}
+                done={prop.done}
+                setTasks={prop.setTasks}/>
             <div>
                 <h3>{prop.content.split('\n')[0]}</h3>
                 <p>{prop.date.toDateString()}</p>
