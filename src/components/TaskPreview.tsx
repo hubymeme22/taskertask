@@ -1,35 +1,67 @@
 import TaskPreviewInterface from './interface/TaskPreview.interface';
-import { useState } from 'react';
+import TaskInterface from './interface/Task.interface';
+import { useEffect, useState } from 'react';
 import '../assets/css/taskpreview.css'
 
 // changes the task to editting preview mode
-const TaskPreview = (props: TaskPreviewInterface) => {
+const TaskPreview = (prop: TaskPreviewInterface) => {
     const [taskContent, setTaskContent] = useState('');
     const [dateContent, setDateContent] = useState(new Date());
 
+    useEffect(() => {
+        if (!prop.editMode) return;
+        setTaskContent(prop.tasks[prop.targetID].content);
+        setDateContent(prop.tasks[prop.targetID].date);
+    }, []);
+
+    // retrieves the date to formatted string value
     const getDateString = function(date: Date) {
         return `${date.getFullYear()}-${date.getMonth() < 9 ? '0' + (date.getMonth() + 1).toString() : (date.getMonth() + 1)}-${date.getDate() < 10 ? '0' + date.getDate().toString() : date.getDate()}`;
     }
 
+    // updates the valiue of the current task
     const updateTaskContent = function(event: any) {
         setTaskContent(event.target.value);
     }
 
+    // updates the date when new date is assigned from input
     const updateDateContent = function(event: any) {
         setDateContent(new Date(event.target.value));
     }
 
-    const addNewTask = () => {
-        props.addTaskCallback({
-            key: props.currentTaskLength,
-            content: taskContent,
-            date: dateContent,
-            done: false
-        })
+    // saves the current task to the list
+    const saveTask = function() {
+        prop.setTasks((tasklist: Array<TaskInterface>) => {
+            tasklist.push({
+                id: prop.latestID + 1,
+                content: taskContent,
+                date: dateContent,
+                done: false,
+            });
 
-        setTaskContent('');
-        setDateContent(new Date());
-        props.backCallback();
+            return tasklist;
+        });
+
+        prop.setLatestID(prop.latestID + 1);
+        prop.setEditMode(false);
+        prop.setPreviewMode(false);
+    }
+
+    // edits the current task id
+    const editTask = function() {
+        prop.setTasks((taskList: Array<TaskInterface>) => {
+            taskList[prop.targetID] = {
+                id: prop.targetID,
+                content: taskContent,
+                date: dateContent,
+                done: taskList[prop.latestID].done,
+            }
+
+            return taskList;
+        });
+
+        prop.setEditMode(false);
+        prop.setPreviewMode(false);
     }
 
     return (
@@ -38,10 +70,10 @@ const TaskPreview = (props: TaskPreviewInterface) => {
                 <label>Assign Date: </label>
                 <input onChange={updateDateContent} value={getDateString(dateContent)} type="date"/>
             </span>
-            <textarea onChange={updateTaskContent} value={taskContent} placeholder='Enter task content here...' rows={10}></textarea>
+            <textarea onChange={updateTaskContent} value={taskContent} placeholder='Enter task content here...' rows={10} required></textarea>
             <div className="button-container">
-                <button className="add" onClick={addNewTask}>Add</button>
-                <button className="cancel" onClick={() => props.backCallback()}>Cancel</button>
+                <button onClick={prop.editMode ? editTask : saveTask} className="add">{prop.editMode ? 'Edit' : 'Save'}</button>
+                <button onClick={() => prop.setPreviewMode(false) || prop.setEditMode(false)} className="cancel">Cancel</button>
             </div>
         </div>
     );

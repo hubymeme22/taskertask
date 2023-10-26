@@ -7,54 +7,54 @@ import Tasks from './Tasks';
 import '../assets/css/tasklist-container.css'
 
 const TaskListContainer = () => {
+    const [latestID, setLatestID] = useState(-1);
+    const [targetID, setTargetID] = useState(-1);
+
     const [editMode, setEditMode] = useState(false);
-    const [tasks, setTasks] = useState([
-        {
-            key: 0,
-            content: 'This is a sample note by me pls uwu',
-            date: new Date(),
-            done: false
-        }
-    ]);
-
-    const logout = function() {
-        console.log('Logged out');
-    }
-
-    // shows and hides the TaskPreview user prompt
-    const startEditMode = function() {
-        setEditMode(prevValue => !prevValue);
-    }
-
-    // adds a new task to the list
-    const addNewTask = function(newTask: TaskInterface) {
-        setTasks(value => {
-            value.push(newTask);
-            return value;
-        });
-    }
+    const [previewMode, setPreviewMode] = useState(false);
+    const [tasks, setTasks] = useState(Array<TaskInterface>());
 
     return (
         <div className="tasklist-container">
             <header>
                 <h2>TaskerTasks</h2>
                 <div className='button-container'>
-                    <AiOutlineFileAdd onClick={startEditMode}/>
-                    <AiOutlineLogout onClick={logout}/>
+                    <AiOutlineFileAdd onClick={() => {
+                        setPreviewMode(preview => !preview);
+                        setEditMode(false)}}/>
+                    <AiOutlineLogout/>
                 </div>
             </header>
 
             {/* task state checker part */}
-            { editMode
+            { (previewMode)
                 ? <TaskPreview
-                    currentTaskLength={tasks.length}
-                    addTaskCallback={addNewTask}
-                    backCallback={startEditMode}/>
+                    latestID={latestID}
+                    targetID={targetID}
+                    editMode={editMode}
+                    tasks={tasks}
+                    setTasks={setTasks}
+                    setLatestID={setLatestID}
+                    setPreviewMode={setPreviewMode}
+                    setEditMode={setEditMode}/>
+
                 : <div className='scrollable'>
                     {
                         (tasks.length > 0)
-                        ? tasks.map((task: TaskInterface) => <Tasks key={task.key} content={task.content} done={task.done} date={task.date}/>)
-                        : <h4 className='comment'>No tasks yet</h4>
+                        ? tasks.map((task: TaskInterface) => {
+                            return (
+                                <Tasks
+                                    key={task.id}
+                                    id={task.id}
+                                    content={task.content}
+                                    date={task.date}
+                                    done={task.done}
+                                    setEditMode={setEditMode}
+                                    setPreviewMode={setPreviewMode}
+                                    setTargetID={setTargetID}/>
+                            )
+                        })
+                        : <h4 className='comment' key={-1}>No tasks yet</h4>
                     }
                 </div>
             }

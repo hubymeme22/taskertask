@@ -1,5 +1,5 @@
 import { AiOutlineCheckCircle, AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
-import TaskInterface from './interface/Task.interface';
+import { IndivTaskInterface } from './interface/Task.interface';
 import '../assets/css/tasks.css'
 import { useState } from 'react';
 
@@ -25,7 +25,14 @@ const CheckCircle = (prop: object) => {
     );
 }
 
-const Tasks = (prop: TaskInterface) => {
+// individual task summary component
+const Tasks = (prop: IndivTaskInterface) => {
+    const displayEdittable = function() {
+        prop.setTargetID(prop.id);
+        prop.setEditMode(true);
+        prop.setPreviewMode(true);
+    }
+
     return (
         <div className="task">
             <CheckCircle/>
@@ -34,7 +41,7 @@ const Tasks = (prop: TaskInterface) => {
                 <p>{prop.date.toDateString()}</p>
             </div>
             <div className="button-container">
-                <AiOutlineEdit/>
+                <AiOutlineEdit onClick={displayEdittable}/>
                 <AiOutlineDelete/>
             </div>
         </div>
