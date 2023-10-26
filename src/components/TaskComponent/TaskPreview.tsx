@@ -1,5 +1,7 @@
 import TaskPreviewInterface from '../interface/TaskPreview.interface';
 import TaskInterface from '../interface/Task.interface';
+
+import { saveTaskState } from '../../utils/LocalSaver';
 import { useEffect, useState } from 'react';
 import '../../assets/css/taskpreview.css'
 
@@ -39,6 +41,7 @@ const TaskPreview = (prop: TaskPreviewInterface) => {
                 done: false,
             });
 
+            saveTaskState(prop.username, prop.userkey, tasklist);
             return tasklist;
         });
 
@@ -54,9 +57,10 @@ const TaskPreview = (prop: TaskPreviewInterface) => {
                 id: prop.targetID,
                 content: taskContent,
                 date: dateContent,
-                done: taskList[prop.latestID].done,
+                done: taskList[prop.targetID].done,
             }
 
+            saveTaskState(prop.username, prop.userkey, taskList);
             return taskList;
         });
 

@@ -16,8 +16,11 @@ const TaskListContainer = (prop: TaskListInterface) => {
     const [previewMode, setPreviewMode] = useState(false);
     const [tasks, setTasks] = useState(Array<TaskInterface>());
 
+    // load the localstorage value and parse the date values
     useEffect(() => {
         const response = authenticateUser(prop.username, prop.userkey);
+        for (let i = 0; i < response.userdata.length; i++)
+            response.userdata[i].date = new Date(response.userdata[i].date);
         setTasks(response.userdata);
     }, []);
 
@@ -40,6 +43,8 @@ const TaskListContainer = (prop: TaskListInterface) => {
                     targetID={targetID}
                     editMode={editMode}
                     tasks={tasks}
+                    username={prop.username}
+                    userkey={prop.userkey}
                     setTasks={setTasks}
                     setLatestID={setLatestID}
                     setPreviewMode={setPreviewMode}

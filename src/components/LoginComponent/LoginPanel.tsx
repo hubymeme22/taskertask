@@ -29,6 +29,8 @@ const LoginPanel = (prop: LoginPanelInterface) => {
         if (registerUser(localUsername, localKey))
             return setAuthenticated('New User Registered!');
         setAuthenticated('Cannnot Register Username');
+        setLocalUsername('');
+        setLocalKey('');
     }
 
     return (

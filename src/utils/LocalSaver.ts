@@ -40,6 +40,7 @@ export const authenticateUser = function(username: string, key: string): respons
 
     const userEncryptedTasklist = currentTaskState[username].split('\0');
     const validator = userEncryptedTasklist.pop();
+    const encryptedTasklist = userEncryptedTasklist.join('\0');
 
     let encryptedData = '';
     for (let i = 0; i < username.length; i++)
@@ -47,8 +48,8 @@ export const authenticateUser = function(username: string, key: string): respons
 
     if (validator == encryptedData) {
         let decryptedTaskData = '';
-        for (let i = 0; i < userEncryptedTasklist[0].length; i++)
-            decryptedTaskData += String.fromCharCode(userEncryptedTasklist[0].charCodeAt(i) ^ key.charCodeAt(i % key.length));
+        for (let i = 0; i < encryptedTasklist.length; i++)
+            decryptedTaskData += String.fromCharCode(encryptedTasklist.charCodeAt(i) ^ key.charCodeAt(i % key.length));
 
         return {
             userdata: JSON.parse(decryptedTaskData),
