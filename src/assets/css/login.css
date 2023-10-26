@@ -1,0 +1,60 @@
+@import url('./global.css');
+
+div.login-container {
+    background-color: white;
+    box-shadow: 0 0.3em 0.5em 0.2em var(--background-default-shadow);
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+
+div.login-container > header {
+    background-color: black;
+    color: white;
+    padding: 0.2em;
+    padding-left: 1em;
+    padding-right: 10em;
+}
+
+div.login-container > header > h1 { margin: 0 }
+div.login-container > .icon {
+    background-color: grey;
+    padding: 0.67em;
+    font-size: 12pt;
+    position: absolute;
+}
+
+div.login-container > input {
+    border: 1px solid black;
+    font-size: 12pt;
+    padding: 0.5em;
+    padding-left: 2.5em;
+    width: 70%;
+    outline: none;
+    transition: 0.5s;
+}
+
+div.login-container > button {
+    cursor: pointer;
+    margin-left: 1em;
+    margin-right: 1em;
+    border-radius: 0.5em;
+    padding: 1em;
+    font-size: 11pt;
+}
+
+div.login-container > button.login {
+    background-color: rgb(86, 192, 86);
+    border: 1px solid rgb(86, 192, 86);
+}
+
+div.login-container > button.register {
+    background-color: rgb(206, 190, 53);
+    border: 1px solid rgb(206, 190, 53);
+}
+
+div.login-container > button:active {
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+}
