@@ -19,7 +19,7 @@ const encryptUserData = function(username: string, key: string, parsedString: st
     for (let i = 0; i < parsedString.length; i++)
         encryptedData += String.fromCharCode(parsedString.charCodeAt(i) ^ key.charCodeAt(i % keyLength));
 
-    encryptedData += '\0';
+    encryptedData += '[&&]';
     for (let i = 0; i < username.length; i++)
         encryptedData += String.fromCharCode(username.charCodeAt(i) ^ key.charCodeAt(i % keyLength));
 
@@ -38,15 +38,15 @@ export const authenticateUser = function(username: string, key: string): respons
             valid: false
         };
 
-    const userEncryptedTasklist = currentTaskState[username].split('\0');
+    const userEncryptedTasklist = currentTaskState[username].split('[&&]');
     const validator = userEncryptedTasklist.pop();
-    const encryptedTasklist = userEncryptedTasklist.join('\0');
+    const encryptedTasklist = userEncryptedTasklist.join('[&&]');
 
     let encryptedData = '';
-    for (let i = 0; i < username.length; i++)
-        encryptedData += String.fromCharCode(username.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+    for (let i = 0; i < validator.length; i++)
+        encryptedData += String.fromCharCode(validator.charCodeAt(i) ^ key.charCodeAt(i % key.length));
 
-    if (validator == encryptedData) {
+    if (encryptedData == username) {
         let decryptedTaskData = '';
         for (let i = 0; i < encryptedTasklist.length; i++)
             decryptedTaskData += String.fromCharCode(encryptedTasklist.charCodeAt(i) ^ key.charCodeAt(i % key.length));
