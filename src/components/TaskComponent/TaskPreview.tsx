@@ -53,14 +53,13 @@ const TaskPreview = (prop: TaskPreviewInterface) => {
     // edits the current task id
     const editTask = function() {
         prop.setTasks((taskList: Array<TaskInterface>) => {
-            taskList[prop.targetID] = {
-                id: prop.targetID,
-                content: taskContent,
-                date: dateContent,
-                done: taskList[prop.targetID].done,
+            for (let i = 0; i < taskList.length; i++) {
+                if (taskList[i].id == prop.targetID) {
+                    taskList[i].content = taskContent;
+                    taskList[i].date = dateContent;
+                    saveTaskState(prop.username, prop.userkey, taskList);
+                }
             }
-
-            saveTaskState(prop.username, prop.userkey, taskList);
             return taskList;
         });
 

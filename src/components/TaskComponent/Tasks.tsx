@@ -1,5 +1,5 @@
 import { AiOutlineCheckCircle, AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
-import { IndivTaskInterface, CircleInterface } from '../interface/Task.interface';
+import TaskInterface, { IndivTaskInterface, CircleInterface } from '../interface/Task.interface';
 import { saveTaskState } from '../../utils/LocalSaver';
 import { useEffect, useState } from 'react';
 import '../../assets/css/tasks.css';
@@ -10,8 +10,14 @@ const CheckCircle = (prop: CircleInterface) => {
 
     const activateCheckedCircle = function() {
         prop.setTasks((tasks: Array<IndivTaskInterface>) => {
-            tasks[prop.id].done = !activated;
-            saveTaskState(prop.username, prop.userkey, tasks);
+            for (let i = 0; i < tasks.length; i++) {
+                if (tasks[i].id == prop.id) {
+                    tasks[i].done = !activated;
+                    saveTaskState(prop.username, prop.userkey, tasks);
+                    break;
+                }
+            }
+
             return tasks;
         });
         setCircleState(circlestate => !circlestate);
@@ -42,6 +48,15 @@ const Tasks = (prop: IndivTaskInterface) => {
         prop.setPreviewMode(true);
     }
 
+    const deleteTask = function() {
+        prop.setTasks((tasks: Array<TaskInterface>) => {
+            const arrayUpdate = tasks.filter((task: TaskInterface) => task.id != prop.id);
+            saveTaskState(prop.username, prop.userkey, arrayUpdate);
+
+            return arrayUpdate;
+        });
+    }
+
     return (
         <div className="task">
             <CheckCircle
@@ -56,7 +71,7 @@ const Tasks = (prop: IndivTaskInterface) => {
             </div>
             <div className="button-container">
                 <AiOutlineEdit onClick={displayEdittable}/>
-                <AiOutlineDelete/>
+                <AiOutlineDelete onClick={deleteTask}/>
             </div>
         </div>
     );
