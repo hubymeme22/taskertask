@@ -32,7 +32,10 @@ const TaskListContainer = (prop: TaskListInterface) => {
                     <AiOutlineFileAdd onClick={() => {
                         setPreviewMode(preview => !preview);
                         setEditMode(false)}}/>
-                    <AiOutlineLogout/>
+                    <AiOutlineLogout onClick={() => {
+                        prop.setGlobalUsername('');
+                        prop.setGlobalUserkey('');
+                    }}/>
                 </div>
             </header>
 

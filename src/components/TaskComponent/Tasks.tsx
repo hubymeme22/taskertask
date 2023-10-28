@@ -6,10 +6,7 @@ import '../../assets/css/tasks.css';
 
 const CheckCircle = (prop: CircleInterface) => {
     const [activated, setCircleState] = useState(false);
-    useEffect(() => {
-        setCircleState(prop.done);
-        console.log(prop.id);
-    }, []);
+    useEffect(() => setCircleState(prop.done), []);
 
     const activateCheckedCircle = function() {
         prop.setTasks((tasks: Array<IndivTaskInterface>) => {

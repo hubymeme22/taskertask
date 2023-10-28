@@ -14,7 +14,7 @@ const App = () => {
         <div className="root">
             {
                 ((username != '') || (key != ''))
-                ? <TaskListContainer username={username} userkey={key}/>
+                ? <TaskListContainer setGlobalUserkey={setKey} setGlobalUsername={setUsername} username={username} userkey={key}/>
                 : <LoginPanel setUsername={setUsername} setKey={setKey}/>
             }
         </div>
