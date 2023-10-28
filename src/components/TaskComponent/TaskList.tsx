@@ -61,6 +61,8 @@ const TaskListContainer = (prop: TaskListInterface) => {
                                     content={task.content}
                                     date={task.date}
                                     done={task.done}
+                                    username={prop.username}
+                                    userkey={prop.userkey}
                                     setEditMode={setEditMode}
                                     setPreviewMode={setPreviewMode}
                                     setTargetID={setTargetID}

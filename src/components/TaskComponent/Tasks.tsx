@@ -1,18 +1,22 @@
 import { AiOutlineCheckCircle, AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
 import { IndivTaskInterface, CircleInterface } from '../interface/Task.interface';
+import { saveTaskState } from '../../utils/LocalSaver';
 import { useEffect, useState } from 'react';
 import '../../assets/css/tasks.css';
 
 const CheckCircle = (prop: CircleInterface) => {
     const [activated, setCircleState] = useState(false);
-    useEffect(() => setCircleState(prop.done), []);
+    useEffect(() => {
+        setCircleState(prop.done);
+        console.log(prop.id);
+    }, []);
 
     const activateCheckedCircle = function() {
         prop.setTasks((tasks: Array<IndivTaskInterface>) => {
             tasks[prop.id].done = !activated;
+            saveTaskState(prop.username, prop.userkey, tasks);
             return tasks;
         });
-
         setCircleState(circlestate => !circlestate);
     }
 
@@ -46,7 +50,9 @@ const Tasks = (prop: IndivTaskInterface) => {
             <CheckCircle
                 id={prop.id}
                 done={prop.done}
-                setTasks={prop.setTasks}/>
+                setTasks={prop.setTasks}
+                username={prop.username}
+                userkey={prop.userkey}/>
             <div>
                 <h3>{prop.content.split('\n')[0]}</h3>
                 <p>{prop.date.toDateString()}</p>
